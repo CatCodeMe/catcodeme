@@ -3,6 +3,9 @@ name: Generate Snake
 on:
   schedule:
     - cron: "0 */12 * * *" # Runs every 12 hours
+  push:
+    branches:
+      - main  # 添加 main 分支的 push 触发
   workflow_dispatch:
 
 jobs:
