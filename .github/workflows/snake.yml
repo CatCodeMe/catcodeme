@@ -1,8 +1,8 @@
 name: Generate Snake
 
 on:
-  schedule:
-    - cron: "0 2 * * *" # Runs every day 2:00
+  # schedule:
+  #   - cron: "0 2 * * *" # Runs every day 2:00
   push:
     branches:
       - main  # 添加 main 分支的 push 触发
