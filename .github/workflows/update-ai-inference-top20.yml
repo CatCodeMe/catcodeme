@@ -1,0 +1,65 @@
+name: Update AI Inference Top 20
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 2 * * 1'
+
+permissions:
+  contents: write
+
+jobs:
+  update-profile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out profile repository
+        uses: actions/checkout@v4
+
+      - name: Build AI Inference Top 20
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          query='topic:inference (llm OR "large language model" OR serving) archived:false fork:false'
+          generated="$(gh api --method GET search/repositories \
+            -f q="$query" \
+            -f sort=stars \
+            -f order=desc \
+            -F per_page=20 \
+            --jq '.items[] | "- [\(.full_name)](\(.html_url)) — ⭐ \(.stargazers_count) · \(.language // "Unknown") · \(.description // "No description" | gsub("[\\r\\n]+"; " ") | gsub("\\|"; "\\\\|"))"')"
+
+          if [ -z "$generated" ]; then
+            echo 'GitHub search returned no repositories.' >&2
+            exit 1
+          fi
+
+          export GENERATED="$generated"
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+
+          readme = Path('README.md')
+          text = readme.read_text()
+          start = '<!-- AI-INFERENCE-TOP20:START -->'
+          end = '<!-- AI-INFERENCE-TOP20:END -->'
+          if start not in text or end not in text:
+              raise SystemExit('Profile README markers were not found.')
+
+          block = f"{start}\n\n{os.environ['GENERATED']}\n\n{end}"
+          before, rest = text.split(start, 1)
+          _, after = rest.split(end, 1)
+          readme.write_text(before + block + after)
+          PY
+
+      - name: Commit refreshed list
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add README.md
+          if git diff --cached --quiet; then
+            echo 'AI Inference Top 20 is unchanged.'
+            exit 0
+          fi
+          git commit -m 'chore: refresh AI inference top 20'
+          git push

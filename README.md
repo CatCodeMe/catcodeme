@@ -1,16 +1,17 @@
-> 文字沉淀生命, 回忆勾连古今
+# Hi, I'm CatCodeMe
 
+I'm learning and building around AI infrastructure, with a focus on LLM inference.
 
-<!-- Copy-paste in your Readme.md file -->
+![AI inference pipeline](./assets/ai-inference-banner.jpg)
 
-<a href="https://next.ossinsight.io/widgets/official/compose-user-dashboard-stats?user_id=11496772" target="_blank" style="display: block" align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://next.ossinsight.io/widgets/official/compose-user-dashboard-stats/thumbnail.png?user_id=11496772&image_size=auto&color_scheme=dark" width="771" height="auto">
-    <img alt="Dashboard stats of @CatCodeMe" src="https://next.ossinsight.io/widgets/official/compose-user-dashboard-stats/thumbnail.png?user_id=11496772&image_size=auto&color_scheme=light" width="771" height="auto">
-  </picture>
-</a>
+## AI Inference
 
-<!-- Made with [OSS Insight](https://ossinsight.io/) -->
+Currently exploring inference engines, serving, scheduling, batching, KV cache, routing, GPU kernels, quantization, and performance.
 
+[Open the live GitHub search](https://github.com/search?q=topic%3Ainference+%28llm+OR+%22large+language+model%22+OR+serving%29+archived%3Afalse+fork%3Afalse&type=repositories&s=stars&o=desc)
 
-<!-- ![snake](https://github.com/CatCodeMe/catcodeme/blob/output/github-contribution-grid-snake.svg) -->
+<!-- AI-INFERENCE-TOP20:START -->
+_The Top 20 list is refreshed weekly by GitHub Actions._
+<!-- AI-INFERENCE-TOP20:END -->
+
+<sub>Learning in public, one inference system at a time.</sub>
